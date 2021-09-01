@@ -1,3 +1,6 @@
+// @dart=2.9
+import 'dart:convert';
+
 import 'package:finance_manager/models/transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,6 +26,7 @@ class AccountItemData with ChangeNotifier {
   }
 
   void deleteTransaction(Transaction transaction) {
+    currentCash += transaction.amount;
     _transactions.remove(transaction);
     notifyListeners();
   }
@@ -33,9 +37,27 @@ class AccountItemData with ChangeNotifier {
     notifyListeners();
   }
 
+  void initTransactions(List<String> transactionList) {
+    _transactions.clear();
+    transactionList.forEach((transactionString) {
+      final loadedTransaction =
+          Transaction.fromJson(jsonDecode(transactionString));
+      _transactions.add(loadedTransaction);
+    });
+  }
+
   void storeItem() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString(id + "title", title);
     prefs.setDouble(id + "currentCash", currentCash);
+    prefs.setStringList(id + "transactions", transactionStringList);
+  }
+
+  List<String> get transactionStringList {
+    List<String> transactionStringData = [];
+    _transactions.forEach((transaction) {
+      transactionStringData.add(json.encode(transaction.toJson()));
+    });
+    return transactionStringData;
   }
 }

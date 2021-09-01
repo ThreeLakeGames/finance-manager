@@ -1,3 +1,4 @@
+// @dart=2.9
 import 'package:finance_manager/provider/account_item_data.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -37,6 +38,31 @@ class AccountListData with ChangeNotifier {
     storedAccountIDList.clear();
     _accountList.forEach((accountItem) {
       storedAccountIDList.add(accountItem.id);
+      accountItem.storeItem();
+    });
+    prefs.setStringList("idList", storedAccountIDList);
+  }
+
+  void loadItems() async {
+    final prefs = await SharedPreferences.getInstance();
+    _accountList.clear();
+    if (prefs.getStringList("idList") == null) {
+      return;
+    }
+    storedAccountIDList = prefs.getStringList("idList");
+    storedAccountIDList.forEach((accountItemID) {
+      final accountTitle = prefs.getString(accountItemID + "title");
+      final accountCurrentCash = prefs.getDouble(accountItemID + "currentCash");
+      final accountTransactionData =
+          prefs.getStringList(accountItemID + "transactions");
+
+      final loadedAccountItem = AccountItemData(
+        id: accountItemID,
+        title: accountTitle,
+        currentCash: accountCurrentCash,
+      );
+      loadedAccountItem.initTransactions(accountTransactionData);
+      _accountList.add(loadedAccountItem);
     });
   }
 

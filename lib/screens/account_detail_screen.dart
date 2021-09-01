@@ -91,7 +91,7 @@ class _AccountDetailScreenState extends State<AccountDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final accountId = ModalRoute.of(context)!.settings.arguments as String;
+    final accountId = ModalRoute.of(context).settings.arguments as String;
     final accountData =
         Provider.of<AccountListData>(context).accountByID(accountId);
     return Scaffold(

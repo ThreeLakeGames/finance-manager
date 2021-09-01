@@ -62,27 +62,27 @@ class _NewTransactionState extends State<NewTransaction> {
                 TextFormField(
                   decoration: InputDecoration(labelText: "Title"),
                   validator: (value) {
-                    if (value!.isEmpty) {
+                    if (value.isEmpty) {
                       return "Please enter a title";
                     }
                     return null;
                   },
                   textInputAction: TextInputAction.next,
                   onSaved: (value) {
-                    _newTransaction.title = value!;
+                    _newTransaction.title = value;
                   },
                 ),
                 TextFormField(
                   decoration: InputDecoration(labelText: "Amount (€)"),
                   keyboardType: TextInputType.number,
                   validator: (value) {
-                    if (value!.isEmpty) {
+                    if (value.isEmpty) {
                       return "Please enter a valid amount";
                     }
                     return null;
                   },
                   onSaved: (value) {
-                    _newTransaction.amount = double.parse(value!);
+                    _newTransaction.amount = double.parse(value);
                   },
                 ),
                 SizedBox(
