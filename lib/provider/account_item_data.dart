@@ -12,7 +12,8 @@ class AccountItemData with ChangeNotifier {
   List<Transaction> _transactions = [
     Transaction(title: "Kellerwirt", amount: 17),
     Transaction(title: "Müllnerbräu", amount: 45),
-    Transaction(title: "Git test", amount: 32)
+    Transaction(title: "This is another Git test", amount: 32)
+
   ];
 
   AccountItemData({
