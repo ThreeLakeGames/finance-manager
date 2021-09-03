@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
                     color: Color.fromRGBO(20, 51, 51, 1),
                   ),
                   headline1: TextStyle(
-                    fontSize: 24,
+                    fontSize: 28,
                     fontWeight: FontWeight.bold,
                     fontFamily: "RobotoCondensed",
                     color: Colors.white,
@@ -48,6 +48,9 @@ class MyApp extends StatelessWidget {
         routes: {
           AccountDetailScreen.routeName: (ctx) {
             return AccountDetailScreen();
+          },
+          HomeOverviewScreen.routeName: (ctx) {
+            return HomeOverviewScreen();
           }
         },
       ),

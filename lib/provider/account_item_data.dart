@@ -10,10 +10,10 @@ class AccountItemData with ChangeNotifier {
   String title;
   double currentCash;
   List<Transaction> _transactions = [
-    Transaction(title: "Kellerwirt", amount: 17),
-    Transaction(title: "Müllnerbräu", amount: 45),
-    Transaction(title: "This is another Git test", amount: 32)
-
+    Transaction(title: "Kellerwirt", amount: 17, date: DateTime.now()),
+    Transaction(title: "Müllnerbräu", amount: 45, date: DateTime.now()),
+    Transaction(
+        title: "This is another Git test", amount: 32, date: DateTime.now())
   ];
 
   AccountItemData({
@@ -45,6 +45,7 @@ class AccountItemData with ChangeNotifier {
           Transaction.fromJson(jsonDecode(transactionString));
       _transactions.add(loadedTransaction);
     });
+    notifyListeners();
   }
 
   void storeItem() async {

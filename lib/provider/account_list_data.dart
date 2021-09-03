@@ -64,6 +64,7 @@ class AccountListData with ChangeNotifier {
       loadedAccountItem.initTransactions(accountTransactionData);
       _accountList.add(loadedAccountItem);
     });
+    notifyListeners();
   }
 
   AccountItemData accountByID(String id) {

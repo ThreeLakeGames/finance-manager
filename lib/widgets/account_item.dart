@@ -14,6 +14,7 @@ class AccountItem extends StatefulWidget {
 
 class _AccountItemState extends State<AccountItem> {
   FutureOr onGoBack(dynamic value) {
+    print("ON GO BACk");
     setState(() {});
   }
 
@@ -24,7 +25,7 @@ class _AccountItemState extends State<AccountItem> {
       child: ListTile(
         title: Text(
           widget.accountItemData.title,
-          style: Theme.of(context).textTheme.headline2,
+          style: Theme.of(context).textTheme.headline3,
         ),
         subtitle: Text(
           widget.accountItemData.currentCash.toString() + "€",

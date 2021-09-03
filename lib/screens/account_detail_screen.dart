@@ -99,20 +99,28 @@ class _AccountDetailScreenState extends State<AccountDetailScreen> {
         title: Text(accountData.title,
             style: Theme.of(context).textTheme.headline1),
       ),
-      body: Column(
-        children: [
-          Text("Budget: " + accountData.currentCash.toString() + "€",
-              style: Theme.of(context).textTheme.headline3),
-          Container(
-            height: 400,
-            child: ListView.builder(
-              itemCount: accountData.transactions.length,
-              itemBuilder: (ctx, i) {
-                return buildTransactionTile(accountData, i);
-              },
+      body: LayoutBuilder(
+        builder: (ctx, constrainsts) => Column(
+          children: [
+            Container(
+              height: constrainsts.maxHeight * 0.08,
+              child: Center(
+                child: Text(
+                    "Budget: " + accountData.currentCash.toString() + "€",
+                    style: Theme.of(context).textTheme.headline3),
+              ),
             ),
-          )
-        ],
+            Container(
+              height: constrainsts.maxHeight * 0.92,
+              child: ListView.builder(
+                itemCount: accountData.transactions.length,
+                itemBuilder: (ctx, i) {
+                  return buildTransactionTile(accountData, i);
+                },
+              ),
+            )
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

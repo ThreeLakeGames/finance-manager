@@ -14,7 +14,7 @@ class NewTransaction extends StatefulWidget {
 class _NewTransactionState extends State<NewTransaction> {
   final _form = GlobalKey<FormState>();
 
-  var _newTransaction = Transaction();
+  var _newTransaction = Transaction(date: DateTime.now());
 
   void _submitData() {
     final _isValid = _form.currentState?.validate();
