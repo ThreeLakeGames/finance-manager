@@ -15,6 +15,7 @@ class _NewTransactionState extends State<NewTransaction> {
   final _form = GlobalKey<FormState>();
 
   var _newTransaction = Transaction(date: DateTime.now());
+  bool _isIncome = false;
 
   void _submitData() {
     final _isValid = _form.currentState?.validate();
@@ -23,9 +24,15 @@ class _NewTransactionState extends State<NewTransaction> {
       print("the form is not valid");
       return;
     }
-    print(_newTransaction.title);
+    _setAmountSign();
     widget.addTransaction(_newTransaction, widget.accountData);
     Navigator.of(context).pop();
+  }
+
+  void _setAmountSign() {
+    if (!_isIncome) {
+      _newTransaction.amount = -_newTransaction.amount;
+    }
   }
 
   void _changeDate(BuildContext context) {
@@ -41,6 +48,13 @@ class _NewTransactionState extends State<NewTransaction> {
         }
       });
     });
+  }
+
+  String validation(String value, String message) {
+    if (value.isEmpty) {
+      return message;
+    }
+    return null;
   }
 
   @override
@@ -62,10 +76,7 @@ class _NewTransactionState extends State<NewTransaction> {
                 TextFormField(
                   decoration: InputDecoration(labelText: "Title"),
                   validator: (value) {
-                    if (value.isEmpty) {
-                      return "Please enter a title";
-                    }
-                    return null;
+                    return validation(value, "Please enter a valid title!");
                   },
                   textInputAction: TextInputAction.next,
                   onSaved: (value) {
@@ -76,10 +87,7 @@ class _NewTransactionState extends State<NewTransaction> {
                   decoration: InputDecoration(labelText: "Amount (€)"),
                   keyboardType: TextInputType.number,
                   validator: (value) {
-                    if (value.isEmpty) {
-                      return "Please enter a valid amount";
-                    }
-                    return null;
+                    return validation(value, "Please enter a valid number!");
                   },
                   onSaved: (value) {
                     _newTransaction.amount = double.parse(value);
@@ -91,12 +99,28 @@ class _NewTransactionState extends State<NewTransaction> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text(DateFormat.yMMMd().format(_newTransaction.date)),
-                    TextButton(
-                        onPressed: () {
-                          _changeDate(context);
-                        },
-                        child: Text("Change Date")),
+                    Row(
+                      children: [
+                        Text("Income"),
+                        Switch(
+                            value: _isIncome,
+                            onChanged: (val) {
+                              setState(() {
+                                _isIncome = val;
+                              });
+                            }),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Text(DateFormat.yMMMd().format(_newTransaction.date)),
+                        TextButton(
+                            onPressed: () {
+                              _changeDate(context);
+                            },
+                            child: Text("Change Date")),
+                      ],
+                    ),
                   ],
                 ),
                 SizedBox(

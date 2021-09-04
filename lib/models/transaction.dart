@@ -3,7 +3,11 @@ class Transaction {
   DateTime date = DateTime.now();
   double amount;
 
-  Transaction({this.title = "", this.amount = 0, this.date});
+  Transaction({
+    this.title = "",
+    this.amount = 0,
+    this.date,
+  });
 
   Transaction.fromJson(Map<String, dynamic> json)
       : title = json["title"],
@@ -16,5 +20,13 @@ class Transaction {
       "amount": amount,
       "date": date.toIso8601String(),
     };
+  }
+
+  bool get isIncome {
+    if (amount > 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

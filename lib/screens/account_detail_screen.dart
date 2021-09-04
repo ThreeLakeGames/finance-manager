@@ -50,9 +50,18 @@ class _AccountDetailScreenState extends State<AccountDetailScreen> {
     });
   }
 
+  Color getTransactionColor(bool isIncome) {
+    if (isIncome) {
+      return Color.fromRGBO(130, 219, 118, 0.85);
+    } else {
+      return Color.fromRGBO(219, 118, 118, 0.85);
+    }
+  }
+
   Widget buildTransactionTile(AccountItemData accountData, int i) {
     return Card(
-      elevation: 7,
+      color: getTransactionColor(accountData.transactions[i].isIncome),
+      elevation: 10,
       child: ListTile(
         title: Text(
           accountData.transactions[i].title,

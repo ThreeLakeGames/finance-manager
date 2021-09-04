@@ -9,12 +9,7 @@ class AccountItemData with ChangeNotifier {
   final String id;
   String title;
   double currentCash;
-  List<Transaction> _transactions = [
-    Transaction(title: "Kellerwirt", amount: 17, date: DateTime.now()),
-    Transaction(title: "Müllnerbräu", amount: 45, date: DateTime.now()),
-    Transaction(
-        title: "This is another Git test", amount: 32, date: DateTime.now())
-  ];
+  List<Transaction> _transactions = [];
 
   AccountItemData({
     this.id = "",
@@ -27,13 +22,13 @@ class AccountItemData with ChangeNotifier {
   }
 
   void deleteTransaction(Transaction transaction) {
-    currentCash += transaction.amount;
+    currentCash -= transaction.amount;
     _transactions.remove(transaction);
     notifyListeners();
   }
 
   void addTransaction(Transaction newTransaction) {
-    currentCash -= newTransaction.amount;
+    currentCash += newTransaction.amount;
     _transactions.add(newTransaction);
     notifyListeners();
   }
@@ -62,4 +57,6 @@ class AccountItemData with ChangeNotifier {
     });
     return transactionStringData;
   }
+
+
 }
