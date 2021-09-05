@@ -31,6 +31,8 @@ class _AccountItemState extends State<AccountItem> {
           widget.accountItemData.currentCash.toString() + "€",
           style: Theme.of(context).textTheme.bodyText1,
         ),
+        trailing:
+            Text(widget.accountItemData.daysLeft.toString() + " days left"),
         onTap: () {
           Navigator.of(context)
               .pushNamed(AccountDetailScreen.routeName,
