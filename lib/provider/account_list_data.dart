@@ -6,17 +6,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AccountListData with ChangeNotifier {
   List<AccountItemData> _accountList = [
     AccountItemData(
-      currentCash: 195,
+      currentCash: 0,
       id: "1",
       title: "SpassKonto",
     ),
     AccountItemData(
-      currentCash: 225,
+      currentCash: 0,
       id: "2",
       title: "Essen-Konto",
     ),
     AccountItemData(
-      currentCash: 395,
+      currentCash: 0,
       id: "3",
       title: "Anfallendes",
     ),

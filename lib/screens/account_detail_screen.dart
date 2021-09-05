@@ -121,12 +121,29 @@ class _AccountDetailScreenState extends State<AccountDetailScreen> {
             ),
             Container(
               height: constrainsts.maxHeight * 0.92,
-              child: ListView.builder(
-                itemCount: accountData.transactions.length,
-                itemBuilder: (ctx, i) {
-                  return buildTransactionTile(accountData, i);
-                },
-              ),
+              child: accountData.transactions.isEmpty
+                  ? Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("No Transactions added yet..."),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Container(
+                          height: constrainsts.maxHeight * 0.25,
+                          child: Image.asset(
+                            "assets/images/waiting.png",
+                            fit: BoxFit.cover,
+                          ),
+                        )
+                      ],
+                    )
+                  : ListView.builder(
+                      itemCount: accountData.transactions.length,
+                      itemBuilder: (ctx, i) {
+                        return buildTransactionTile(accountData, i);
+                      },
+                    ),
             )
           ],
         ),
