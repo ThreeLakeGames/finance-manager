@@ -1,7 +1,6 @@
 // @dart=2.9
 import 'dart:convert';
 
-import 'package:date_util/date_util.dart';
 import 'package:finance_manager/models/transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -62,6 +61,6 @@ class AccountItemData with ChangeNotifier {
   int get daysLeft {
     final dateNow = DateTime.now();
     final daysInMonth = DateUtils.getDaysInMonth(dateNow.year, dateNow.month);
-    return daysInMonth - DateTime.now().day;
+    return daysInMonth - dateNow.day;
   }
 }

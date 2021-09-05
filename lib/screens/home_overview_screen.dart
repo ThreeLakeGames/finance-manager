@@ -4,8 +4,19 @@ import 'package:finance_manager/widgets/main_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class HomeOverviewScreen extends StatelessWidget {
+class HomeOverviewScreen extends StatefulWidget {
   static const routeName = "/home-overview-screen";
+
+  @override
+  _HomeOverviewScreenState createState() => _HomeOverviewScreenState();
+}
+
+class _HomeOverviewScreenState extends State<HomeOverviewScreen> {
+  @override
+  void initState() {
+    Provider.of<AccountListData>(context, listen: false).loadItems();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +29,6 @@ class HomeOverviewScreen extends StatelessWidget {
               Provider.of<AccountListData>(context, listen: false).storeItems();
             },
             icon: Icon(Icons.save),
-          ),
-          IconButton(
-            onPressed: () {
-              Provider.of<AccountListData>(context, listen: false).loadItems();
-            },
-            icon: Icon(Icons.download),
           ),
         ],
       ),
